@@ -2,6 +2,15 @@ const express = require("express");
 const app = express();
 const PORT = 3010;
 const mongoose = require("mongoose");
+const cors = require("cors");
+
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+app.use(cors());
+
+var groceryItems = require('./routes/grocery');
 
 const connectDB = async () => {
   mongoose
@@ -21,6 +30,7 @@ const connectDB = async () => {
 //connecting the database
 connectDB();
 
+app.use('/api/groceryItems', groceryItems);
 
 // listen to PORT
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`)); // need to put the PORT to .env

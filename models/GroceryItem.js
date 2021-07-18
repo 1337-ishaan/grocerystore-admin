@@ -1,24 +1,12 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require("mongoose");
 
-let groceryItemSchema = new Schema({
-  name: {
-    type: String
-  },
-  quantity: {
-    type: String
-  },
-  description: {
-    type: String
-  },
-  amount: {
-    type: String // kept the type string because the user can add currency as well 
-  },
-  image: {
-    type: String  
-  },
-}, {
-    collection: 'groceryItems'
-  })
+var GroceryItemSchema = new mongoose.Schema({
+  name: String,
+  quantity: String,
+  description: String,
+  image: String,
+  price: Number,
+  updated_date: { type: Date, default: Date.now },
+});
 
-module.exports = mongoose.model('Grocery', studentSchema)
+module.exports = mongoose.model("Grocery", GroceryItemSchema);
