@@ -7,7 +7,8 @@ import App from "./App";
 import Edit from "./components/Edit";
 import Create from "./components/Create";
 import Show from "./components/Show";
-import OrderHistory from "./components/OrderHistory";
+import RecentOrders from "./components/RecentOrders";
+import ViewAllOrders from "./components/ViewAllOrders";
 
 ReactDOM.render(
   <Router>
@@ -16,9 +17,9 @@ ReactDOM.render(
       <Route path="/edit/:id" component={Edit} />
       <Route path="/create" component={Create} />
       <Route path="/show/:id" component={Show} />
-      <Route path="/orderHistory" component={OrderHistory} />
-
-
+      <Route path="/recentOrders" component={RecentOrders} />
+      <Route path="/viewAllOrders" component={ViewAllOrders} />
+   
     </div>
   </Router>,
   document.getElementById("root")

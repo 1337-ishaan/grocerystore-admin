@@ -4,14 +4,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const App = () => {
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     books: []
-  //   };
-  // }
-
   const [groceryItems, setGroceryItems] = useState([]);
 
     useEffect(() => {
@@ -33,7 +25,7 @@ const App = () => {
           </div>
           <div class="panel-body">
             <h4><Link to="/create"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Grocery Item</Link></h4>
-            <h4><Link to="/orderHistory"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Orders History</Link></h4>
+            <h4><Link to="/recentOrders"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Orders History</Link></h4>
 
             <table class="table table-stripe">
               <thead>

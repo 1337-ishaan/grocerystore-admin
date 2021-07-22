@@ -10,58 +10,49 @@ const OrderHistory = () => {
           <ol className="breadcrumb mb-30">
             <li className="breadcrumb-item active">Dashboard</li>
           </ol>
-          <div className="row">
-            <div className="col-xl-3 col-md-6">
+          <div className="row ">
+            <div className="col-xl-3 col-md-6 ">
               <div className="dashboard-report-card purple">
-                <div className="card-content">
+                <div className="card-content text-center py-3 card ">
                   <span className="card-title">Order Pending</span>
                   <span className="card-count">2</span>
                 </div>
-                <div className="card-media">
-                  <i className="fab fa-rev" />
-                </div>
+              
               </div>
             </div>
             <div className="col-xl-3 col-md-6">
               <div className="dashboard-report-card red">
-                <div className="card-content">
+                <div className="card-content text-center py-3 card">
                   <span className="card-title">Order Cancel</span>
                   <span className="card-count">0</span>
                 </div>
-                <div className="card-media">
-                  <i className="far fa-times-circle" />
-                </div>
+             
               </div>
             </div>
             <div className="col-xl-3 col-md-6">
               <div className="dashboard-report-card info">
-                <div className="card-content">
+                <div className="card-content text-center py-3 card">
                   <span className="card-title">Order Process</span>
                   <span className="card-count">5</span>
                 </div>
-                <div className="card-media">
-                  <i className="fas fa-sync-alt rpt_icon" />
-                </div>
+            
               </div>
             </div>
             <div className="col-xl-3 col-md-6">
-              <div className="dashboard-report-card success">
-                <div className="card-content">
+              <div className="dashboard-report-card text-success">
+                <div className="card-content text-center py-3 card">
                   <span className="card-title">Today Income</span>
-                  <span className="card-count">$9568.00</span>
-                </div>
-                <div className="card-media">
-                  <i className="fas fa-money-bill rpt_icon" />
+                  <span className="card-count">₹ 9568.00</span>
                 </div>
               </div>
-            </div>
-            <div className="col-xl-12 col-md-12">
-              <div className="card card-static-2 mb-30">
+            </div> 
+            <div className="col-xl-12 mt-3  col-md-12">
+              <div className="card card-static-2 p-3 mb-30">
                 <div className="card-title-2">
                   <h4>Recent Orders</h4>
-                  <a href="orders.html" className="view-btn hover-btn">
+                  <Link to="/viewAllOrders" className="view-btn hover-btn">
                     View All
-                  </a>
+                  </Link>
                 </div>
                 <div className="card-body-table">
                   <div className="table-responsive">
@@ -100,26 +91,6 @@ const OrderHistory = () => {
           </div>
         </div>
       </main>
-      <footer className="py-4 bg-footer mt-auto">
-        <div className="container-fluid">
-          <div className="d-flex align-items-center justify-content-between small">
-            <div className="text-muted-1">
-              © 2020 <b>Grocery Supermarket</b>. by{" "}
-              <a href="https://themeforest.net/user/gambolthemes">
-                Abhinash kumar
-              </a>
-            </div>
-            <div className="footer-links">
-              <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/privacy_policy.html">
-                Privacy Policy
-              </a>
-              <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/term_and_conditions.html">
-                Terms &amp; Conditions
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
