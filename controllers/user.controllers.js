@@ -1,12 +1,15 @@
-import passport from "passport";
-import dotenv from "dotenv";
-import strategy from "passport-facebook";
+const passport = require("passport");
+const strategy = require("passport-facebook");
 
-import Users from "../models/Users";
+const Users = require("../models/Users");
+
+
+const FACEBOOK_CLIENT_ID = "115083787416610";
+const FACEBOOK_CLIENT_SECRET = "0c9c97f3c42b87761a38b92991884b9b";
 
 const FacebookStrategy = strategy.Strategy;
 
-dotenv.config();
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -18,9 +21,9 @@ passport.deserializeUser(function(obj, done) {
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+      clientID: FACEBOOK_CLIENT_ID,
+      clientSecret: FACEBOOK_CLIENT_SECRET,
+      callbackURL: "/", // to replace
       profileFields: ["email", "name"]
     },
     function(accessToken, refreshToken, profile, done) {

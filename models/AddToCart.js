@@ -6,12 +6,14 @@ const CartSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
     },
-    products: [
+    productId: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Grocery"
+        ref: "Grocery",
       },
     ],
+    quantity: Number,
+    price: Number,
     active: {
       type: Boolean,
       default: true,

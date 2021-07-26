@@ -1,10 +1,10 @@
-var express = require("express");
+const express = require("express")
+const mongoose = require("mongoose")
+const Cart = require("../models/AddToCart")
+
 var router = express.Router();
-var mongoose = require("mongoose");
-var Cart = require("../models/AddToCart.js");
 
-
-router.post("/cart", async (req, res) => {
+router.post("/", async (req, res) => {
     const { productId, quantity, name, price } = req.body;
   
     const userId = "5de7ffa74fff640a0491bc4f"; //TODO: the logged in user id
@@ -41,4 +41,6 @@ router.post("/cart", async (req, res) => {
       res.status(500).send("Something went wrong");
     }
   });
+  
+module.exports = router;
   

@@ -1,41 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Navbar from "./Navbar";
+import { Table } from "react-bootstrap";
 
 const ViewAllOrders = () => {
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
+  
+  
+    const getProducts = () => {
+      for (let i = 0; i < orders.length; i++) {
+        for (let j = 0; j < products.length; j++) {
+          if (orders[i].product == products[j]._id) {
+            setOrders({ ...orders, products: products[i] });
+          }
+        }
+      }
+      return orders;
+    };
+  useEffect(() => {
+    axios.get("http://178.128.51.49:3010/api/orders").then((res) => {
+      console.log(res.data.orders);
+      setOrders(res.data.orders);
+    });
+    axios.get("http://178.128.51.49:3010/api/groceryItems").then((res) => {
+      setProducts(res.data);
+    });
+    }, []);
+
   return (
     <>
-    <Link to="/recentOrders">Back</Link>
-      <table className="table ucp-table table-hover">
+      <Navbar />
+      {/* <Link to="/dashboard">Back</Link>*/}
+      <Table striped bordered hover className="w-75 m-auto mt-3" variant="dark">
         <thead>
           <tr>
-            <th style={{ width: 130 }}>Order ID</th>
-            <th style={{ width: 130 }}>Payment Method</th>
-            <th style={{ width: 200 }}>Order Date</th>
-            <th style={{ width: 200 }}>Delivery Date</th>
-            <th style={{ width: 130 }}>Status</th>
-            <th style={{ width: 130 }}>Total</th>
-            <th style={{ width: 100 }}>Action</th>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Quantity</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#ORDER 123</td>
-            <td>Card </td>
-            <td></td>
-            <td>2013-01-12 09:10</td>
-            <td>Pending</td>
-            <td>&#8377;5000</td>
-            <td className="action-btns">
-              <i className="fas fa-eye" />
-
-              <i className="fas fa-edit" />
-            </td>
-          </tr>
+          {orders.map((item) => (
+            <tr>
+              <td>{item._id}</td>
+              <td>{item.quantity}</td>
+              <td>{item.timestamp}</td>
+              <td>&#8377;{item.price}</td>
+            </tr>
+          ))}
         </tbody>
-      </table>
+      </Table>
     </>
   );
 };
-
 
 export default ViewAllOrders;

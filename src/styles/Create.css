@@ -1,0 +1,10 @@
+.form-group{
+    display:flex;
+    margin:auto;
+    align-content:center;
+    text-align:left;
+}
+
+.submit_button{
+    margin:auto!important;
+}

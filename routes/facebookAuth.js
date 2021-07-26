@@ -1,11 +1,9 @@
-import express from "express";
-import passport from "passport";
+const express = require("express");
+const passport = require("passport");
+const userController = require("../controllers/user.controllers");
 
-const userRouter = express.Router();
-
-userRouter.get("/auth/facebook", passport.authenticate("facebook"));
-
-userRouter.get(
+var router = express.Router();
+router.get(
   "/auth/facebook/callback",
   passport.authenticate("facebook", {
     successRedirect: "/",
@@ -13,11 +11,12 @@ userRouter.get(
   })
 );
 
-userRouter.get("/fail", (req, res) => {
+router.get("/fail", (req, res) => {
   res.send("Failed attempt");
 });
 
-userRouter.get("/", (req, res) => {
+router.get("/", (req, res) => {
   res.send("Success");
 });
-export default userRouter;
+
+module.exports = router;

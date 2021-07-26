@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 // Create Schema
-const UserSchema = new Schema({
+const FormUsersSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -16,7 +17,7 @@ const UserSchema = new Schema({
   },
 
   message: {
-    type: Number,
+    type: String,
     required: false,
   },
   date: {
@@ -24,4 +25,4 @@ const UserSchema = new Schema({
     default: Date.now,
   },
 });
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = mongoose.model("FormUsers", FormUsersSchema);

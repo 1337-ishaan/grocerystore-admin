@@ -9,16 +9,22 @@ import Create from "./components/Create";
 import Show from "./components/Show";
 import RecentOrders from "./components/RecentOrders";
 import ViewAllOrders from "./components/ViewAllOrders";
+import Users from "./components/Users";
+import Login from "./components/Login";
+
 
 ReactDOM.render(
   <Router>
     <div>
-      <Route exact path="/" component={App} />
+      <Route exact path="/" component={Login} />
       <Route path="/edit/:id" component={Edit} />
       <Route path="/create" component={Create} />
       <Route path="/show/:id" component={Show} />
-      <Route path="/recentOrders" component={RecentOrders} />
+      {/* <Route path="/recentOrders" component={RecentOrders} /> */}
       <Route path="/viewAllOrders" component={ViewAllOrders} />
+      <Route path="/users" component={Users} />
+      <Route path="/dashboard" component={App} />
+
    
     </div>
   </Router>,

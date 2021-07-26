@@ -1,7 +1,31 @@
-var express = require("express");
+const express = require("express");
+const mongoose = require("mongoose");
+const GroceryItem = require("../models/GroceryItem.js");
+const multer = require("multer");
+
 var router = express.Router();
-var mongoose = require("mongoose");
-var GroceryItem = require("../models/GroceryItem.js");
+// const Storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "../public/uploads");
+//   },
+//   filename: function (req, file, cb) {
+//     console.log(req,file);
+//     cb(null, Date.now() + file.originalname);
+//   },
+// });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads/");
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname;
+    cb(null, fileName);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
 
 /* GET ALL GroceryItemS */
 router.get("/", function (req, res, next) {
@@ -19,13 +43,18 @@ router.get("/:id", function (req, res, next) {
   });
 });
 
+
 /* SAVE GroceryItem */
-router.post("/", function (req, res, next) {
+router.post("/", upload.single("file"), function (req, res, next) {
+
   console.log(req.body, "Creating new entry");
-  GroceryItem.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  GroceryItem.create(
+    { ...req.body, image: req.file.name },
+    function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    }
+  );
 });
 
 /* UPDATE GroceryItem */
