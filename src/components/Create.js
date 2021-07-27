@@ -31,25 +31,18 @@ const Create = (props) => {
     const file = new FormData();
 
     const { name, category, quantity, description, image, price } = state;
-    file.append("file", image);
+    file.append("image", image);
+    file.append("name", name);
+    file.append("quantity", quantity);
+    file.append("description", description);
+    file.append("price", price);
+    file.append("category", category);
+
     console.log(image, "image in onSubmit");
     axios
-      .post("http://localhost:3010/api/groceryItems", {
-        name,
-        quantity,
-        description,
-        price,
-        category,
-      })
+      .post("http://localhost:3010/api/groceryItems", file)
       .then((response) => {
-        axios
-          .put(
-            "http://localhost:3010/api/groceryItems/" + response.data._id,
-            file
-          )
-          .then((res) => {
-            history.push("/");
-          });
+        history.push("/");
       });
   };
 

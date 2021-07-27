@@ -8,13 +8,13 @@ import { Form, Button } from "react-bootstrap";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const history = useHistory();
 
   const loginAdmin = () => {
     axios
-      .post("http://178.128.51.49:3010/api/admin-login", {
+      .post("http://localhost:3010/api/admin-login", {
         email,
         password,
       })

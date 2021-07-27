@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Navbar from './Navbar';
+import Navbar from "./Navbar";
 import { Form, Button } from "react-bootstrap";
-
 
 const Show = (props) => {
   const [groceryItems, setGroceryItems] = useState({});
 
   useEffect(() => {
     axios
-      .get(
-        "http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id
-      )
+      .get("http://localhost:3010/api/groceryItems/" + props.match.params.id)
       .then((res) => {
         setGroceryItems(res.data);
         console.log(groceryItems);
@@ -24,25 +21,24 @@ const Show = (props) => {
   const deleteItem = (id) => {
     console.log(id);
     axios
-      .delete("http://178.128.51.49:3010/api/groceryItems/" + id)
+      .delete("http://localhost:3010/api/groceryItems/" + id)
       .then((result) => {
         props.history.push("/");
       });
   };
 
-  const {price, name, description, category, image, quantity} = groceryItems;
+  const { price, name, description, category, image, quantity } = groceryItems;
   return (
-<><Navbar />
-    <div className="container">
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          {/* <h3 className="panel-title">{groceryItems.title}</h3> */}
-        </div>
-        <div className="mt-2 panel-body">
-
-          <Form
+    <>
+      <Navbar />
+      <div className="container">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            {/* <h3 className="panel-title">{groceryItems.title}</h3> */}
+          </div>
+          <div className="mt-2 panel-body">
+            <Form
               className="text-light w-50 m-auto"
-              
               encType="multipart/form-data"
             >
               <Form.Group
@@ -51,7 +47,7 @@ const Show = (props) => {
               >
                 <Form.Label>Product Name</Form.Label>
                 <Form.Control
-                disabled
+                  disabled
                   defaultValue={name}
                   name="name"
                   // onChange={(e) => onChange(e)}
@@ -65,7 +61,7 @@ const Show = (props) => {
               >
                 <Form.Label>Price</Form.Label>
                 <Form.Control
-                disabled
+                  disabled
                   name="price"
                   defaultValue={price}
                   // onChange={(e) => onChange(e)}
@@ -79,7 +75,7 @@ const Show = (props) => {
               >
                 <Form.Label>Product Description</Form.Label>
                 <Form.Control
-                disabled
+                  disabled
                   name="description"
                   defaultValue={description}
                   // onChange={(e) => onChange(e)}
@@ -93,9 +89,8 @@ const Show = (props) => {
               >
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control
-                disabled
+                  disabled
                   name="quantity"
-                  
                   defaultValue={quantity}
                   // onChange={(e) => onChange(e)}
                   type="text"
@@ -125,7 +120,7 @@ const Show = (props) => {
               <Form.Group controlId="formFileLg" className="mb-3">
                 <Form.Label>Product Image to display</Form.Label>
                 <Form.Control
-                disabled
+                  disabled
                   name="file"
                   // defaultValue={image}
                   type="file"
@@ -135,27 +130,27 @@ const Show = (props) => {
                 />
               </Form.Group>
               <div className="d-flex">
-
-              <Button
-                size="lg"
-                // onClick={(e) => onSubmit(e)}
-                className=" mx-auto my-3 d-flex "
-                variant="warning"
-                ><Link className="text-dark" to={`/edit/${groceryItems._id}`} >
-                Edit
-              </Link>
-              </Button>
-              <Button
-                size="lg"
-                onClick={() => deleteItem(groceryItems._id)}
-                className=" mx-auto my-3 d-flex "
-                variant="danger"
+                <Button
+                  size="lg"
+                  // onClick={(e) => onSubmit(e)}
+                  className=" mx-auto my-3 d-flex "
+                  variant="warning"
                 >
-                Delete
-              </Button>
-                </div>
+                  <Link className="text-dark" to={`/edit/${groceryItems._id}`}>
+                    Edit
+                  </Link>
+                </Button>
+                <Button
+                  size="lg"
+                  onClick={() => deleteItem(groceryItems._id)}
+                  className=" mx-auto my-3 d-flex "
+                  variant="danger"
+                >
+                  Delete
+                </Button>
+              </div>
             </Form>
-          {/* <div className="d-flex ">
+            {/* <div className="d-flex ">
             <Link to={`/edit/${groceryItems._id}`} className="btn btn-success">
               Edit
             </Link>
@@ -167,9 +162,9 @@ const Show = (props) => {
               Delete
             </button>
           </div> */}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

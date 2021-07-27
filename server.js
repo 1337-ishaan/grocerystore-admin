@@ -18,7 +18,7 @@ const GOOGLE_SECRET = "_hU7CJYucc1xZjP44DsTnM1-";
 const app = express();
 const PORT = 3010;
 app.use(express.json());
-
+app.use("/uploads", express.static("uploads"));
 app.use(
   express.urlencoded({
     extended: true,
@@ -28,15 +28,12 @@ app.use(cors());
 
 const connectDB = async () => {
   mongoose
-    .connect(
-      "mongodb+srv://1337_ishaan:Ishaan@2000@cluster0.3yrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-      {
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-      }
-    )
+    .connect("mongodb://localhost:27017/adminpanel", {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    })
     .then(() => console.log("Connected Successfully"))
     .catch((err) => console.error("Not Connected"));
 };

@@ -38,20 +38,22 @@ router.get("/:id", function (req, res, next) {
 });
 
 /* SAVE GroceryItem */
-router.post("/", upload.single("file"), function (req, res, next) {
-  console.log(req.body, "Creating new entry");
-  GroceryItem.create({ ...req.body }, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+router.post("/", upload.single("image"), function (req, res, next) {
+  GroceryItem.create(
+    { ...req.body, image: req.file.path },
+    function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    }
+    );
 });
 
 /* UPDATE GroceryItem */
-router.put("/:id", upload.single("file"), function (req, res, next) {
+router.put("/:id", upload.single("image"), function (req, res, next) {
   console.log(req.file);
   GroceryItem.findByIdAndUpdate(
     req.params.id,
-    req.file.path,
+    { ...req.body, image: req.file.path },
     function (err, post) {
       if (err) return next(err);
       res.json(post);

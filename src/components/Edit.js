@@ -10,9 +10,7 @@ const Edit = (props) => {
 
   useEffect(() => {
     axios
-      .get(
-        "http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id
-      )
+      .get("http://localhost:3010/api/groceryItems/" + props.match.params.id)
       .then((res) => {
         setGroceryItems(res.data);
         // () => setState()({ groceryItems: res.data });
@@ -29,26 +27,20 @@ const Edit = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const {
-      name,
-      description,
-      price,
-      image,
-      quantity,
-      category,
-    } = groceryItems;
+    const { name, description, price, image, quantity, category } =
+      groceryItems;
+    const file = new FormData();
 
+    file.append("image", image);
+    file.append("name", name);
+    file.append("quantity", quantity);
+    file.append("description", description);
+    file.append("price", price);
+    file.append("category", category);
     axios
       .put(
-        "http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id,
-        {
-          name,
-          category,
-          description,
-          price,
-          image,
-          quantity,
-        }
+        "http://localhost:3010/api/groceryItems/" + props.match.params.id,
+        file
       )
       .then((response) => {
         console.log(response);
@@ -60,7 +52,7 @@ const Edit = (props) => {
   const { name, category, description, price, image, quantity } = groceryItems;
 
   const handleImage = (e) => {
-    groceryItems[image] = e.target.files[0];
+    groceryItems["image"] = e.target.files[0];
     setGroceryItems(groceryItems);
   };
   return (
@@ -68,7 +60,6 @@ const Edit = (props) => {
       <Navbar />
       <div className="container">
         <div className="panel panel-default">
-       
           <div className="my-2 mb-3 panel-body">
             <Form
               className="text-light w-50 m-auto"
@@ -150,7 +141,7 @@ const Edit = (props) => {
                 <Form.Label>Product Image to display</Form.Label>
                 <Form.Control
                   name="file"
-                  // defaultValue={image}
+                  defaultValue={image}
                   type="file"
                   onChange={(e) => handleImage(e)}
                   placeholder="Image"
