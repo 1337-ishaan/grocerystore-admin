@@ -1,30 +1,24 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const GroceryItem = require("../models/GroceryItem.js");
-const multer = require("multer");
-
 var router = express.Router();
-// const Storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "../public/uploads");
-//   },
-//   filename: function (req, file, cb) {
-//     console.log(req,file);
-//     cb(null, Date.now() + file.originalname);
-//   },
-// });
+const multer = require("multer");
+const fs = require("fs");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/uploads/");
+    const path = `./uploads/`;
+    fs.mkdirSync(path, { recursive: true });
+    return cb(null, path);
   },
-  filename: (req, file, cb) => {
-    const fileName = file.originalname;
-    cb(null, fileName);
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, "") + file.originalname);
   },
 });
 
 const upload = multer({
   storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
 });
 
 /* GET ALL GroceryItemS */
@@ -43,26 +37,26 @@ router.get("/:id", function (req, res, next) {
   });
 });
 
-
 /* SAVE GroceryItem */
 router.post("/", upload.single("file"), function (req, res, next) {
-
   console.log(req.body, "Creating new entry");
-  GroceryItem.create(
-    { ...req.body, image: req.file.name },
+  GroceryItem.create({ ...req.body }, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* UPDATE GroceryItem */
+router.put("/:id", upload.single("file"), function (req, res, next) {
+  console.log(req.file);
+  GroceryItem.findByIdAndUpdate(
+    req.params.id,
+    req.file.path,
     function (err, post) {
       if (err) return next(err);
       res.json(post);
     }
   );
-});
-
-/* UPDATE GroceryItem */
-router.put("/:id", function (req, res, next) {
-  GroceryItem.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
 });
 
 /* DELETE GroceryItem */

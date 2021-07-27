@@ -28,20 +28,28 @@ const Create = (props) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    const file = new FormData();
 
     const { name, category, quantity, description, image, price } = state;
+    file.append("file", image);
     console.log(image, "image in onSubmit");
     axios
-      .post("http://178.128.51.49:3010/api/groceryItems", {
+      .post("http://localhost:3010/api/groceryItems", {
         name,
         quantity,
         description,
-        image,
         price,
         category,
       })
       .then((response) => {
-        history.push("/");
+        axios
+          .put(
+            "http://localhost:3010/api/groceryItems/" + response.data._id,
+            file
+          )
+          .then((res) => {
+            history.push("/");
+          });
       });
   };
 
@@ -144,7 +152,14 @@ const Create = (props) => {
                   size="sm"
                 />
               </Form.Group>
-              <Button size="lg" onClick={(e) => onSubmit(e)} className=" mx-auto my-3 d-flex " variant="primary">Submit</Button>
+              <Button
+                size="lg"
+                onClick={(e) => onSubmit(e)}
+                className=" mx-auto my-3 d-flex "
+                variant="primary"
+              >
+                Submit
+              </Button>
             </Form>
           </div>
         </div>

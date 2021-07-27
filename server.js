@@ -12,7 +12,6 @@ const formData = require("./routes/formData.js");
 const adminAuth = require("./routes/adminAuth");
 const strategy = require("passport-facebook");
 const sendOTP = require("./routes/twilio.js");
-const fileupload = require("express-fileupload");
 const GOOGLE_CLIENT_ID =
   "504089142769-s8i324k1u3bdlo0933dlds5l2hrd94ek.apps.googleusercontent.com";
 const GOOGLE_SECRET = "_hU7CJYucc1xZjP44DsTnM1-";
@@ -26,7 +25,6 @@ app.use(
   })
 );
 app.use(cors());
-app.use(fileupload());
 
 const connectDB = async () => {
   mongoose
