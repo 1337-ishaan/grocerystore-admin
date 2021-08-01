@@ -39,13 +39,13 @@ router.get("/:id", function (req, res, next) {
 
 /* SAVE GroceryItem */
 router.post("/", upload.single("image"), function (req, res, next) {
-  GroceryItem.create(
-    { ...req.body, image: req.file.path },
-    function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    }
-  );
+  GroceryItem.create({ ...req.body, image: req.file.path }, function (
+    err,
+    post
+  ) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 /* UPDATE GroceryItem */
@@ -59,6 +59,13 @@ router.put("/:id", upload.single("image"), function (req, res, next) {
       res.json(post);
     }
   );
+});
+
+router.put("/checked/:id", function (req, res, next) {
+  GroceryItem.findByIdAndUpdate(req.body._id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 /* DELETE GroceryItem */

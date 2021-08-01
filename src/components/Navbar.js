@@ -42,6 +42,9 @@ const NavbarComponent = () => {
               <Nav.Link>
                 <Nav.Link as={Link} to="/users">Users</Nav.Link>{" "}
               </Nav.Link>
+              <Nav.Link>
+                <Nav.Link as={Link} to="/banner">Banner</Nav.Link>{" "}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

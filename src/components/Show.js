@@ -9,7 +9,7 @@ const Show = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3010/api/groceryItems/" + props.match.params.id)
+      .get("http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id)
       .then((res) => {
         setGroceryItems(res.data);
         console.log(groceryItems);
@@ -21,7 +21,7 @@ const Show = (props) => {
   const deleteItem = (id) => {
     console.log(id);
     axios
-      .delete("http://localhost:3010/api/groceryItems/" + id)
+      .delete("http://178.128.51.49:3010/api/groceryItems/" + id)
       .then((result) => {
         props.history.push("/");
       });

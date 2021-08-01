@@ -28,7 +28,7 @@ app.use(cors());
 
 const connectDB = async () => {
   mongoose
-    .connect("mongodb://localhost:27017/adminpanel", {
+    .connect("mongodb+srv://1337_ishaan:Ishaan@2000@cluster0.3yrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,

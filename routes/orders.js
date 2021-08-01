@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
             quantity: doc.quantity,
             request: {
               type: "GET",
-              url: "http://localhost:3010/api/orders/" + doc._id,
+              url: "http://178.128.51.49:3010/api/orders/" + doc._id,
             },
           };
         }),
@@ -64,7 +64,7 @@ router.post("/", (req, res, next) => {
         },
         request: {
           type: "GET",
-          url: "http://localhost:3010/api/orders/" + result._id,
+          url: "http://178.128.51.49:3010/api/orders/" + result._id,
         },
       });
     })
@@ -89,7 +89,7 @@ router.get("/:orderId", (req, res, next) => {
         order: order,
         request: {
           type: "GET",
-          url: "http://localhost:3010/api/orders",
+          url: "http://178.128.51.49:3010/api/orders",
         },
       });
     })
@@ -108,7 +108,7 @@ router.delete("/:orderId", (req, res, next) => {
         message: "Order deleted",
         request: {
           type: "POST",
-          url: "http://localhost:3010/api/orders",
+          url: "http://178.128.51.49:3010/api/orders",
           body: { productId: "ID", quantity: "Number" },
         },
       });

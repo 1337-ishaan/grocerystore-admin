@@ -30,12 +30,13 @@ router.post("/", function (req, res, next) {
 });
 
 /* UPDATE GroceryItem */
-// router.put("/:id", function (req, res, next) {
-//   FormUsers.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-//     if (err) return next(err);
-//     res.json(post);
-//   });
-// });
+router.put("/:id", function (req, res, next) {
+  FormUsers.findByIdAndUpdate(req.body._id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+    
+  });
+});
 
 // /* DELETE GroceryItem */
 // router.delete("/:id", function (req, res, next) {

@@ -3,20 +3,28 @@ import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import "../styles/Create.css";
 import Navbar from "./Navbar";
+import { Typeahead } from "react-bootstrap-typeahead";
 import { Form, Button } from "react-bootstrap";
+
 const Create = (props) => {
+  const[categ,setCateg] = useState([]) 
   const [state, setState] = useState({
     name: "",
     quantity: "",
     description: "",
     image: "image",
     price: "",
-    category: "",
+    category: categ,
+    active: true,
+    stock: 0,
   });
 
   let history = useHistory();
 
   const onChange = (e) => {
+    // if (e.target.name === "category") {
+    //   state[category] = state["category"].push(e.target.value);
+    // }
     state[e.target.name] = e.target.value;
     setState(state);
   };
@@ -29,24 +37,36 @@ const Create = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const file = new FormData();
-
-    const { name, category, quantity, description, image, price } = state;
+    
+    const {
+      name,
+      category,
+      quantity,
+      stock,
+      active,
+      description,
+      image,
+      price,
+    } = state;
     file.append("image", image);
     file.append("name", name);
     file.append("quantity", quantity);
     file.append("description", description);
     file.append("price", price);
     file.append("category", category);
+    file.append("stock", stock);
+    file.append("active", active);
 
     console.log(image, "image in onSubmit");
     axios
-      .post("http://localhost:3010/api/groceryItems", file)
+      .post("http://178.128.51.49:3010/api/groceryItems", file)
       .then((response) => {
         history.push("/");
       });
+      console.log(category)
   };
 
-  const { name, category, quantity, description, image, price } = state;
+  const { name, category, quantity, stock, description, image, price } = state;
   return (
     <>
       <Navbar />
@@ -106,7 +126,20 @@ const Create = (props) => {
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
+                <Form.Label>Stock</Form.Label>
+                <Form.Control
+                  name="description"
+                  defaultValue={stock}
+                  onChange={(e) => onChange(e)}
+                  type="number"
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
                 <Form.Label>Quantity</Form.Label>
+
                 <Form.Control
                   name="quantity"
                   defaultValue={quantity}
@@ -120,9 +153,18 @@ const Create = (props) => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Category</Form.Label>
-                <Form.Select
+                <Typeahead
+          id="basic-typeahead-multiple"
+          labelKey="name"
+          multiple
+          onChange={setCateg}
+          options={["Instant Food", "Grocery", "Daily gift", "Home Supplies", "Beverages"]}
+          placeholder="Choose several states..."
+          selected={categ}
+        />
+                {/* <Form.Select
                   name="category"
-                  defaultValue={category}
+                  // defaultValue={category.map(k => k)}
                   onChange={(e) => onChange(e)}
                   aria-label="Default select example"
                 >
@@ -132,7 +174,7 @@ const Create = (props) => {
                   <option value="Daily Gift">Daily Gift</option>
                   <option value="Home Supplies">Home Supplies</option>
                   <option value="Beverages">Beverages</option>
-                </Form.Select>
+                </Form.Select> */}
               </Form.Group>
               <Form.Group controlId="formFileLg" className="mb-3">
                 <Form.Label>Product Image to display</Form.Label>
@@ -143,6 +185,13 @@ const Create = (props) => {
                   onChange={(e) => handleImage(e)}
                   placeholder="Image"
                   size="sm"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check
+                  defaultChecked={true}
+                  type="checkbox"
+                  label="Active"
                 />
               </Form.Group>
               <Button

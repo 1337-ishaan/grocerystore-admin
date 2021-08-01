@@ -10,7 +10,7 @@ const Edit = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3010/api/groceryItems/" + props.match.params.id)
+      .get("http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id)
       .then((res) => {
         setGroceryItems(res.data);
         // () => setState()({ groceryItems: res.data });
@@ -39,7 +39,7 @@ const Edit = (props) => {
     file.append("category", category);
     axios
       .put(
-        "http://localhost:3010/api/groceryItems/" + props.match.params.id,
+        "http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id,
         file
       )
       .then((response) => {
@@ -48,7 +48,6 @@ const Edit = (props) => {
       });
   };
 
-  console.log(groceryItems);
   const { name, category, description, price, image, quantity } = groceryItems;
 
   const handleImage = (e) => {
@@ -147,7 +146,14 @@ const Edit = (props) => {
                   placeholder="Image"
                   size="sm"
                 />
+                <br />
+                <Form.Label>
+                  <img 
+                    className="w-25 rounded m-auto"
+                   src={`http://178.128.51.49:3010/${image}`} />
+                </Form.Label>
               </Form.Group>
+              
               <Button
                 size="lg"
                 onClick={(e) => onSubmit(e)}

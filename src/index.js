@@ -11,6 +11,10 @@ import RecentOrders from "./components/RecentOrders";
 import ViewAllOrders from "./components/ViewAllOrders";
 import Users from "./components/Users";
 import Login from "./components/Login";
+import Banner from "./components/Banner";
+import NewBannerForm from "./components/NewBannerForm";
+
+
 
 
 ReactDOM.render(
@@ -24,6 +28,10 @@ ReactDOM.render(
       <Route path="/viewAllOrders" component={ViewAllOrders} />
       <Route path="/users" component={Users} />
       <Route path="/dashboard" component={App} />
+      <Route path="/banner" component={Banner} />
+      <Route path="/newbanner" component={NewBannerForm} />
+
+
 
    
     </div>

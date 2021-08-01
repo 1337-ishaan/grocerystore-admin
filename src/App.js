@@ -4,19 +4,27 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
-import { Table } from "react-bootstrap";
+import { Table,InputGroup } from "react-bootstrap";
 
 const App = () => {
   const [groceryItems, setGroceryItems] = useState([]);
 
+
+  const changeItemStatus = (e, id, index) => {
+    groceryItems[index]["active"] = e.target.checked;
+    setGroceryItems(groceryItems);
+    axios.put("http://178.128.51.49:3010/api/groceryItems/checked/" + id, groceryItems[index]);
+    console.log(groceryItems);
+  };
+  
   useEffect(() => {
-    axios.get("http://localhost:3010/api/groceryItems").then((res) => {
+    axios.get("http://178.128.51.49:3010/api/groceryItems").then((res) => {
       setGroceryItems(res.data);
+      console.log(res.data);
       console.log(groceryItems);
     });
   }, []);
 
-  // render() {
   return (
     <div class="containe">
       <Navbar />
@@ -68,6 +76,8 @@ const App = () => {
               <th>Description</th>
               <th>Category</th>
               <th className="text-center w-50">Product Image</th>
+              <th>Status</th>
+           
             </tr>
           </thead>
           <tbody className="">
@@ -84,7 +94,17 @@ const App = () => {
                 <td>{item.description}</td>
                 <td>{item.category}</td>
                 <td className="text-center">
-                  <img className="w-25 rounded m-auto" src={`http://localhost:3010/${item.image}`} />
+                  <img
+                    className="w-25 rounded m-auto"
+                    src={`http://178.128.51.49:3010/${item.image}`}
+                  />
+                </td>
+                <td className="">
+                <InputGroup.Checkbox
+                  onClick={(e) => changeItemStatus(e, item._id, i)}
+                  defaultChecked={item.active}
+                  aria-label="Checkbox for following text input"
+                />
                 </td>
               </tr>
             ))}

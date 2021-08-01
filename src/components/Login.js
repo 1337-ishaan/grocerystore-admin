@@ -14,7 +14,7 @@ const Login = () => {
 
   const loginAdmin = () => {
     axios
-      .post("http://localhost:3010/api/admin-login", {
+      .post("http://178.128.51.49:3010/api/admin-login", {
         email,
         password,
       })

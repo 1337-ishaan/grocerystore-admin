@@ -15,6 +15,12 @@ const FormUsersSchema = new Schema({
     type: Number,
     required: true,
   },
+  
+  active: {
+    type: Boolean,
+    required:true
+  },
+  
 
   message: {
     type: String,
