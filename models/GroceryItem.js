@@ -5,8 +5,10 @@ var GroceryItemSchema = new mongoose.Schema({
   description: String,
   image: String,
   price: Number,
-  category: String,
-
+  discount_price: Number,
+  category: [String],
+  active: Boolean,
+  stock: Number,  //Out of stock
   updated_date: { type: Date, default: Date.now },
 });
 

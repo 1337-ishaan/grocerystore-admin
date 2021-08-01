@@ -45,7 +45,7 @@ router.post("/", upload.single("image"), function (req, res, next) {
       if (err) return next(err);
       res.json(post);
     }
-    );
+  );
 });
 
 /* UPDATE GroceryItem */

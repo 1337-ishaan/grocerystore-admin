@@ -45,6 +45,12 @@ router.post("/", (req, res, next) => {
         quantity: req.body.quantity,
         product: req.body.product,
       });
+
+      Product.findByIdAndUpdate(req.body.product, {
+        $inc: {
+          stock: -1,
+        },
+      });
       return order.save();
     })
     .then((result) => {
@@ -113,4 +119,9 @@ router.delete("/:orderId", (req, res, next) => {
       });
     });
 });
+
+router.get("/analytics/:id", async (req, res) => {
+  const orders = await Order.find({ product: req.params.id });
+});
+
 module.exports = router;

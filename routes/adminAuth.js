@@ -8,6 +8,7 @@ router.post("/", passport.authenticate("local"), (req, res) => {
     message: "You logged in!",
   });
 });
+
 router.get("/logout", (req, res) => {
   req.logout();
   res.status(200).send({
