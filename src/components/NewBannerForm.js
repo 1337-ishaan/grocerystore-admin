@@ -25,9 +25,11 @@ const NewBannerForm = () => {
     file.append("active", active);
 
     console.log(image, "image in onSubmit");
-    axios.post("API", file).then((response) => {
-      history.push("/banner");
-    });
+    axios
+      .post("http://178.128.51.49:3010/api/banner", file)
+      .then((response) => {
+        history.push("/banner");
+      });
   };
 
   const { image, active } = state;

@@ -10,6 +10,7 @@ const facebookRouter = require("./routes/facebookAuth.js");
 const addToCart = require("./routes/addToCart.js");
 const formData = require("./routes/formData.js");
 const adminAuth = require("./routes/adminAuth");
+const banner = require("./routes/banner");
 const strategy = require("passport-facebook");
 const sendOTP = require("./routes/twilio.js");
 const GOOGLE_CLIENT_ID =
@@ -28,7 +29,7 @@ app.use(cors());
 
 const connectDB = async () => {
   mongoose
-    .connect("mongodb+srv://1337_ishaan:Ishaan@2000@cluster0.3yrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+    .connect("mongodb://localhost:27017/adminpanel", {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -51,6 +52,7 @@ app.use("/api/payments", payments);
 app.use("/api/addToCart", addToCart);
 app.use("/api/form", formData);
 app.use("/api/admin-login", adminAuth);
+app.use("/api/banner", banner);
 
 app.post("/api/sendotp", (req, res) => sendOTP(req, res));
 app.use("/api/facebook-login", facebookRouter);

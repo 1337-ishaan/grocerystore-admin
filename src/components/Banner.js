@@ -18,25 +18,29 @@ const Banner = () => {
   file.append("active", active);
 
   useEffect(() => {
-    axios.get("API").then((res) => setBannerData(res.data.result));
+    axios
+      .get("http://178.128.51.49:3010/api/banner")
+      .then((res) => setBannerData(res.data.result));
   });
 
   const changeBannerStatus = (e, id, index) => {
     bannerData[index]["active"] = e.target.checked;
     setBannerData(bannerData);
-    axios.put("API" + id, bannerData[index]);
+    axios.put("http://178.128.51.49:3010/api/banner" + id, bannerData[index]);
     console.log(bannerData);
   };
 
   const addImage = (e, id, index) => {
-    axios.post("API", newBanner);
+    axios.post("http://178.128.51.49:3010/api/banner", newBanner);
   };
 
   const deleteImage = (id) => {
     console.log(id);
-    axios.delete("API" + id).then((result) => {
-      console.log(result);
-    });
+    axios
+      .delete("http://178.128.51.49:3010/api/banner" + id)
+      .then((result) => {
+        console.log(result);
+      });
   };
   return (
     <>
