@@ -28,18 +28,19 @@ const Create = (props) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    const file = new FormData();
 
     const { name, category, quantity, description, image, price } = state;
+    file.append("image", image);
+    file.append("name", name);
+    file.append("quantity", quantity);
+    file.append("description", description);
+    file.append("price", price);
+    file.append("category", category);
+
     console.log(image, "image in onSubmit");
     axios
-      .post("http://178.128.51.49:3010/api/groceryItems", {
-        name,
-        quantity,
-        description,
-        image,
-        price,
-        category,
-      })
+      .post("http://localhost:3010/api/groceryItems", file)
       .then((response) => {
         history.push("/");
       });
@@ -144,7 +145,14 @@ const Create = (props) => {
                   size="sm"
                 />
               </Form.Group>
-              <Button size="lg" onClick={(e) => onSubmit(e)} className=" mx-auto my-3 d-flex " variant="primary">Submit</Button>
+              <Button
+                size="lg"
+                onClick={(e) => onSubmit(e)}
+                className=" mx-auto my-3 d-flex "
+                variant="primary"
+              >
+                Submit
+              </Button>
             </Form>
           </div>
         </div>

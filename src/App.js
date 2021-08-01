@@ -9,8 +9,8 @@ import { Table } from "react-bootstrap";
 const App = () => {
   const [groceryItems, setGroceryItems] = useState([]);
 
-useEffect(() => {
-    axios.get("http://178.128.51.49:3010/api/groceryItems").then((res) => {
+  useEffect(() => {
+    axios.get("http://localhost:3010/api/groceryItems").then((res) => {
       setGroceryItems(res.data);
       console.log(groceryItems);
     });
@@ -67,7 +67,7 @@ useEffect(() => {
               <th>Quantity</th>
               <th>Description</th>
               <th>Category</th>
-              {/* <th>Product Image</th> */}
+              <th className="text-center w-50">Product Image</th>
             </tr>
           </thead>
           <tbody className="">
@@ -83,6 +83,9 @@ useEffect(() => {
                 <td>{item.quantity}</td>
                 <td>{item.description}</td>
                 <td>{item.category}</td>
+                <td className="text-center">
+                  <img className="w-25 rounded m-auto" src={`http://localhost:3010/${item.image}`} />
+                </td>
               </tr>
             ))}
           </tbody>
