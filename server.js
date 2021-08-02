@@ -11,6 +11,7 @@ const addToCart = require("./routes/addToCart.js");
 const formData = require("./routes/formData.js");
 const adminAuth = require("./routes/adminAuth");
 const banner = require("./routes/banner");
+const catagory = require("./routes/catagory");
 const strategy = require("passport-facebook");
 const sendOTP = require("./routes/twilio.js");
 const GOOGLE_CLIENT_ID =
@@ -53,6 +54,7 @@ app.use("/api/addToCart", addToCart);
 app.use("/api/form", formData);
 app.use("/api/admin-login", adminAuth);
 app.use("/api/banner", banner);
+app.use("/api/catagory", catagory);
 
 app.post("/api/sendotp", (req, res) => sendOTP(req, res));
 app.use("/api/facebook-login", facebookRouter);
