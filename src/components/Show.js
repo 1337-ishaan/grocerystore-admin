@@ -9,7 +9,9 @@ const Show = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id)
+      .get(
+        "http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id
+      )
       .then((res) => {
         setGroceryItems(res.data);
         console.log(groceryItems);

@@ -30,7 +30,7 @@ app.use(cors());
 
 const connectDB = async () => {
   mongoose
-    .connect("mongodb://localhost:27017/adminpanel", {
+    .connect("mongodb://178.128.51.49:27017/adminpanel", {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,

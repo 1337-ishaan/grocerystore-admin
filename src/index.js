@@ -13,10 +13,8 @@ import Users from "./components/Users";
 import Login from "./components/Login";
 import Banner from "./components/Banner";
 import NewBannerForm from "./components/NewBannerForm";
-
-
-
-
+import Catagory from "./components/Catagory";
+import NewCatagory from "./components/NewCatagory";
 ReactDOM.render(
   <Router>
     <div>
@@ -30,10 +28,8 @@ ReactDOM.render(
       <Route path="/dashboard" component={App} />
       <Route path="/banner" component={Banner} />
       <Route path="/newbanner" component={NewBannerForm} />
-
-
-
-   
+      <Route path="/catagory" component={Catagory} />
+      <Route path="/newcatagory" component={NewCatagory} />
     </div>
   </Router>,
   document.getElementById("root")

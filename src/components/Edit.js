@@ -10,7 +10,9 @@ const Edit = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id)
+      .get(
+        "http://178.128.51.49:3010/api/groceryItems/" + props.match.params.id
+      )
       .then((res) => {
         setGroceryItems(res.data);
         // () => setState()({ groceryItems: res.data });
@@ -148,12 +150,13 @@ const Edit = (props) => {
                 />
                 <br />
                 <Form.Label>
-                  <img 
+                  <img
                     className="w-25 rounded m-auto"
-                   src={`http://178.128.51.49:3010/${image}`} />
+                    src={`http://178.128.51.49:3010/${image}`}
+                  />
                 </Form.Label>
               </Form.Group>
-              
+
               <Button
                 size="lg"
                 onClick={(e) => onSubmit(e)}

@@ -3,8 +3,9 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const NewBannerForm = () => {
+const NewCategoryForm = () => {
   const [state, setState] = useState({
+    title: "",
     image: "",
     active: true,
   });
@@ -20,16 +21,17 @@ const NewBannerForm = () => {
     e.preventDefault();
     const file = new FormData();
 
-    const { active, image } = state;
+    const { title, active, image } = state;
 
     file.append("image", image);
     file.append("active", active);
+    file.append("title", title);
 
     console.log(image, "image in onSubmit");
     axios
-      .post("http://178.128.51.49:3010/api/banner", file)
+      .post("http://178.128.51.49:3010/api/category", file)
       .then((response) => {
-        history.push("/banner");
+        history.push("/catagory");
       });
   };
 
@@ -39,10 +41,26 @@ const NewBannerForm = () => {
       <div className="panel panel-default">
         <div className="panel-heading">
           <h3 className="panel-title text-light text-center mt-5">
-            ADD NEW BANNER IMAGE
+            ADD NEW Category
           </h3>
         </div>
         <div className="panel-body">
+          <Form.Group
+            className="text-light w-50 m-auto"
+            controlId="exampleForm.ControlInput1"
+          >
+            <Form.Label>Category Name</Form.Label>
+            <Form.Control
+              name="description"
+              onChange={(e) =>
+                setState((state) => {
+                  return { ...state, title: e.target.value };
+                })
+              }
+              type="text"
+              placeholder="Can mention any conditions for the usage ... "
+            />
+          </Form.Group>
           <Form
             className="text-light w-50 m-auto"
             onSubmit={(e) => onSubmit(e)}
@@ -81,4 +99,4 @@ const NewBannerForm = () => {
   );
 };
 
-export default NewBannerForm;
+export default NewCategoryForm;

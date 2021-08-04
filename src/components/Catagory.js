@@ -4,42 +4,38 @@ import Navbar from "./Navbar";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Banner = () => {
-  const [bannerData, setBannerData] = useState([]);
-  const [newBanner, setNewBanner] = useState({
+const Catagory = () => {
+  const [catagoryData, setCatagoryData] = useState([]);
+  const [newCatagory, setNewCatagory] = useState({
     image: "",
     active: "",
   });
 
-  const { image, active } = newBanner;
+  const { image, active } = newCatagory;
 
   const file = new FormData();
   file.append("image", image);
   file.append("active", active);
 
   useEffect(() => {
-    const getData = async () => {
-      await axios
-        .get("http://178.128.51.49:3010/api/banner")
-        .then((res) => setBannerData(res.data));
-    };
-    getData();
+    axios
+      .get("http://178.128.51.49:3010/api/category")
+      .then((res) => setCatagoryData(res.data));
   });
-  const changeBannerStatus = (e, id, index) => {
-    bannerData[index]["active"] = e.target.checked;
-    setBannerData(bannerData);
-    axios.put("http://178.128.51.49:3010/api/banner/" + id, bannerData[index]);
-    console.log(bannerData);
-  };
 
-  const addImage = (e, id, index) => {
-    axios.post("http://178.128.51.49:3010/api/banner", newBanner);
+  const changeCatagoryStatus = (e, id, index) => {
+    catagoryData[index]["active"] = e.target.checked;
+    setCatagoryData(catagoryData);
+    axios.put(
+      "http://178.128.51.49:3010/api/category/" + id,
+      catagoryData[index]
+    );
   };
 
   const deleteImage = (id) => {
     console.log(id);
     axios
-      .delete("http://178.128.51.49:3010/api/banner/" + id)
+      .delete("http://178.128.51.49:3010/api/category/" + id)
       .then((result) => {
         console.log(result);
       });
@@ -50,13 +46,14 @@ const Banner = () => {
       <Table className="w-75 m-auto mt-3" striped bordered hover variant="dark">
         <thead>
           <tr>
-            <th>Banner Image</th>
+            <th>Catagory Image</th>
+            <th>Title</th>
             <th>Status</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {bannerData?.map((item, i) => (
+          {catagoryData?.map((item, i) => (
             <tr>
               <td>
                 <img
@@ -64,10 +61,11 @@ const Banner = () => {
                   src={`http://178.128.51.49:3010/${item.image}`}
                 />
               </td>
+              <td>{item.title}</td>
               <td>
                 {" "}
                 <InputGroup.Checkbox
-                  onClick={(e) => changeBannerStatus(e, item._id, i)}
+                  onClick={(e) => changeCatagoryStatus(e, item._id, i)}
                   defaultChecked={item.active}
                   aria-label="Checkbox for following text input"
                 />
@@ -85,12 +83,12 @@ const Banner = () => {
             </tr>
           ))}
         </tbody>
-        <Link to="/newbanner">
-          <h2>Add new banner image</h2>
+        <Link to="/newcatagory">
+          <h2>Add new Catagory </h2>
         </Link>
       </Table>
     </>
   );
 };
 
-export default Banner;
+export default Catagory;

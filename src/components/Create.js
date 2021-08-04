@@ -1,13 +1,12 @@
-import React, { Component, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import "../styles/Create.css";
 import Navbar from "./Navbar";
-import { Typeahead } from "react-bootstrap-typeahead";
 import { Form, Button } from "react-bootstrap";
-
+import { Typeahead } from "react-bootstrap-typeahead";
 const Create = (props) => {
-  const[categ,setCateg] = useState([]) 
+  const [categ, setCateg] = useState([]);
   const [state, setState] = useState({
     name: "",
     quantity: "",
@@ -18,7 +17,7 @@ const Create = (props) => {
     active: true,
     stock: 0,
   });
-
+  const [catagoryData, setCatagoryData] = useState([]);
   let history = useHistory();
 
   const onChange = (e) => {
@@ -28,7 +27,11 @@ const Create = (props) => {
     state[e.target.name] = e.target.value;
     setState(state);
   };
-
+  useEffect(() => {
+    axios
+      .get("http://178.128.51.49:3010/api/category")
+      .then((res) => setCatagoryData(res.data.filter((obj) => obj.active)));
+  }, [setCatagoryData]);
   const handleImage = (e) => {
     state[image] = e.target.files[0];
     setState(state);
@@ -37,7 +40,7 @@ const Create = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const file = new FormData();
-    
+
     const {
       name,
       category,
@@ -63,7 +66,6 @@ const Create = (props) => {
       .then((response) => {
         history.push("/");
       });
-      console.log(category)
   };
 
   const { name, category, quantity, stock, description, image, price } = state;
@@ -153,28 +155,18 @@ const Create = (props) => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Category</Form.Label>
+
                 <Typeahead
-          id="basic-typeahead-multiple"
-          labelKey="name"
-          multiple
-          onChange={setCateg}
-          options={["Instant Food", "Grocery", "Daily gift", "Home Supplies", "Beverages"]}
-          placeholder="Choose several states..."
-          selected={categ}
-        />
-                {/* <Form.Select
-                  name="category"
-                  // defaultValue={category.map(k => k)}
-                  onChange={(e) => onChange(e)}
-                  aria-label="Default select example"
-                >
-                  <option>Category type?</option>
-                  <option value="Instant Food">Instant Food</option>
-                  <option value="Grocery">Grocery</option>
-                  <option value="Daily Gift">Daily Gift</option>
-                  <option value="Home Supplies">Home Supplies</option>
-                  <option value="Beverages">Beverages</option>
-                </Form.Select> */}
+                  id="basic-typeahead-multiple"
+                  labelKey="name"
+                  multiple
+                  onChange={setCateg}
+                  options={catagoryData.map((obj) => {
+                    return obj.title;
+                  })}
+                  placeholder="Choose several states..."
+                  selected={categ}
+                />
               </Form.Group>
               <Form.Group controlId="formFileLg" className="mb-3">
                 <Form.Label>Product Image to display</Form.Label>

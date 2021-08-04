@@ -7,18 +7,8 @@ import { Table } from "react-bootstrap";
 const ViewAllOrders = () => {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
-  
-  
-    const getProducts = () => {
-      for (let i = 0; i < orders.length; i++) {
-        for (let j = 0; j < products.length; j++) {
-          if (orders[i].product == products[j]._id) {
-            setOrders({ ...orders, products: products[i] });
-          }
-        }
-      }
-      return orders;
-    };
+  const [render, setRender] = useState([]);
+
   useEffect(() => {
     axios.get("http://178.128.51.49:3010/api/orders").then((res) => {
       console.log(res.data.orders);
@@ -27,7 +17,20 @@ const ViewAllOrders = () => {
     axios.get("http://178.128.51.49:3010/api/groceryItems").then((res) => {
       setProducts(res.data);
     });
-    }, []);
+  }, [setOrders, setProducts]);
+
+  useEffect(() => {
+    setRender(
+      orders.map((obj) => {
+        return {
+          product: products.find(obj.product).name,
+          quantity: obj.quantity,
+          timestamp: obj.createdAt,
+          price: products.find(obj.product).price,
+        };
+      })
+    );
+  }, [setRender, orders, products]);
 
   return (
     <>
@@ -36,16 +39,16 @@ const ViewAllOrders = () => {
       <Table striped bordered hover className="w-75 m-auto mt-3" variant="dark">
         <thead>
           <tr>
-            <th>Order ID</th>
+            <th>Order Name</th>
             <th>Order Date</th>
             <th>Quantity</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((item) => (
+          {render?.map((item) => (
             <tr>
-              <td>{item._id}</td>
+              <td>{item.product}</td>
               <td>{item.quantity}</td>
               <td>{item.timestamp}</td>
               <td>&#8377;{item.price}</td>

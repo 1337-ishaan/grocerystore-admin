@@ -35,11 +35,10 @@ router.post("/", upload.single("image"), function (req, res, next) {
     res.json(post);
   });
 });
-router.put("/:id", upload.single("image"), function (req, res, next) {
-  console.log(req.file);
+router.put("/:id", function (req, res, next) {
   Banner.findByIdAndUpdate(
     req.params.id,
-    { ...req.body, image: req.file.path },
+    { ...req.body },
     function (err, post) {
       if (err) return next(err);
       res.json(post);
